@@ -1,16 +1,28 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios  from "axios";
 
 
 export default function signUpPage(){
+    const router = useRouter();
     let [user,setUser] = useState({
         email: "",
         password:"",
         username:""
     })
+
+    const [buttonDisabled,setButtonDisabled] = useState(false);
+
+    useEffect(()=>{
+        if(user.email.length> 0 && user.password.length>0 && user.username.length>0){
+            setButtonDisabled(false);
+        }
+        else{
+            setButtonDisabled(true);
+        }
+    },[user]);
 
     const onSignUp=async()=>{
         console.log("hello");
@@ -49,10 +61,10 @@ export default function signUpPage(){
             />
 
             <div onClick={onSignUp} className="flex justify-center ml-48 w-40 rounded-lg mt-4 bg-blue-500">
-                <button className="text-center text-white">Sign Up</button>
+                <button className="text-center text-white">{buttonDisabled ? "No Sign Up" : "Sign Up"}</button>
                 
             </div>
-            <Link href="/login">Visit Login Page</Link>
+            <Link className="ml-52 mt-20" href="/login">Visit Login Page</Link>
         </div>
         
     )  

@@ -7,4 +7,4 @@ export default function userProfile({params}: any){
             <p className="text-4xl">Profile Page Paragraph {params.id}</p>
         </div>
     )
-}
+} 
